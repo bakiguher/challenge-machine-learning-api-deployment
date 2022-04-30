@@ -6,8 +6,6 @@ import os
 app = Flask(__name__)
 prediction = ""
 
-
-
 def clean_data(_a:dict):
     '''
         Function to convert recevided data from web form to numpp array
@@ -23,26 +21,19 @@ def clean_data(_a:dict):
             _list.append(_a[key])
         else:
             _list.append(0)
-
-    pred_array = np.array(_list)
+    return np.array(_list)
     
-    return pred_array
-    
-
-
 @app.route('/', methods=['GET', 'POST'])
 def main():
+    '''
+        Function to get data from form and return the prediction in the same template. 
+    '''
     if request.method == "POST":
         clf = joblib.load("clf.pkl")
-        _alldata=request.form.to_dict()
-        _q=clean_data(_alldata)
-        prediction=clf.predict(_q)
-        prediction="{0:,.2f}".format(prediction)
+        prediction="{0:,.2f}".format(clf.predict(clean_data(request.form.to_dict())))
         prediction = "It is around " + str(prediction) + " Euros" 
-       
     else:
         prediction = ""
-        
     return render_template("website.html", prediction=prediction )
 
 

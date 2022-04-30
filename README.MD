@@ -41,8 +41,8 @@ Ideally, your API would ask a user to provide with information about a property 
 In any API use case the first thing to decide _(for each route)_, is the **input** and the **output** you want.
 Your very first step will be to decide that.
 
-### Input
-
+### Input Data
+```
 subtype
 age
 bedroomCount
@@ -65,18 +65,13 @@ hasTerrace
 transaction_sale_isFurnished
 specificities_hasOffice
 hasparking
-
-
 ```
 
-Don't forget to specify which parameters will be required or not.
-
-The JSON input data must be acquired through a HTML form that you will create in Flask. Think to add a "validate" button that will generate the JSON.
 
 ### Output
 
-Your JSON output should look something like that:
-**(This is an example, you will need to decide the format of the prediction (float or string))**
+Predicted price: same page as form
+ 
 
 ```json
 {
@@ -84,10 +79,6 @@ Your JSON output should look something like that:
   "error": Optional[str]
 }
 ```
-
-The output must be displayed in a pretty way in your interface.
-
-Don't forget to provide an error if something went wrong (in this case, you can also provide an HTTP status code. For more information about that, check the [Flask documentation](https://flask.palletsprojects.com/en/2.0.x/errorhandling/#returning-api-errors-as-json) and the [status' code list](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).)
 
 
 ### Must-have features
@@ -176,4 +167,3 @@ Deploy your web app on Heroku using the requirements.txt file. You can use the f
 |                | The presentation is clean.                               | [ ]    |
 
 
-![You've got this!](https://media.giphy.com/media/YSTLV9MkR248Qvxjz3/giphy.gif)
