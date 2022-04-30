@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Appartment Price Predict</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  
+
+  <div class=container'>
+  <body>
+
+    
+    
+  <div class="row">
+  <div class="col"></div>
+    
+        <div class="col" >
+
+    
+        <h4> Predict an appartment price</h4>
+        <form name="form" , method="POST">
+            
+            <label for="subtype">Type</label>
+            <select id= 'subtype' name= 'subtype' class="form-control form-control-lg" aria-label="Default select example">
+                
+                <option value=0>Apartment</option>
+                <option value=1>Dublex</option>
+                <option value=2>Penthouse</option>
+                <option value=3>Triplex</option>
+                <option value=4>Loft</option>
+              </select>
+            
+			
+						
+              <label  for="age">Age</label>
+              <input type="range" class="form-control form-control-sm" id="age" name= 'age' value="2" min="0" max="21" oninput="this.nextElementSibling.value = this.value">
+                <output class="row pl-3">2</output>
+
+
+                <label  for="netHabitableSurface">Habitable Surface</label>
+                <input type="range" class="form-control form-control-sm" id= 'netHabitableSurface' name= 'netHabitableSurface' value="100" min="80" max="280" oninput="this.nextElementSibling.value = this.value">
+                  <output>100</output>
+
+                               
+              <div class="form-group row mt-4">
+			  <div class="col"></col>
+              <label for="room" >Room Count</label>
+              <select id= 'bedroomCount' name= 'bedroomCount' class="form-control" aria-label="Default select example">
+                  
+                  <option value=1>1 Room</option>
+                  <option value=2>2 Rooms</option>
+                  <option value=3 selected>3 Rooms</option>
+                  <option value=3>4 Rooms</option>
+              </select>
+				</div>
+				<div class="col"></col>
+              <label for="room">Bathroom Count</label>
+                    <select id= 'bathroomCount' name= 'bathroomCount' class="form-control" aria-label="Default select example">
+                        
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+					</div>
+				<div class="col"></col>
+                <label for="room">Toilet Count</label>
+                    <select id= 'toiletCount' name= 'toiletCount' class="form-control" aria-label="Default select example">
+                  
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        
+                        </select>
+					</div>
+
+                    <div class="col"></col>
+                    <label for="transaction_certificates_epcScore">EPC</label>
+                    <select id= 'transaction_certificates_epcScore' name= 'transaction_certificates_epcScore' class="form-control" aria-label="Default select example">
+                        
+                      
+                      <option value=8>A++</option>
+                      <option value=7>A+</option>
+                      <option value=6 selected>A</option>
+                      <option value=5>B</option>
+                      <option value=4>C</option>
+                      <option value=3>D</option>
+                      <option value=2>E</option>
+                      <option value=1>F</option>
+                      <option value=0>G</option>
+                      
+                      </select>
+
+                    </div>
+                </div>
+
+                
+				
+				
+				
+				
+				
+                <div class="form-group row ">
+                    <div class="col">
+
+                         <label for="flags_isNewlyBuilt">New Built</label>
+                            <select id= 'flags_isNewlyBuilt' name= 'flags_isNewlyBuilt' class="form-control" aria-label="Default select example">
+                                                    
+                              <option value=0>No</option>
+                              <option value=7>Yes</option>
+                              
+                              </select>
+        
+                            </div>
+
+              
+
+                <div class="col"></col>
+                    <label for="kitchen_type">Kitchen Type</label>
+                    <select id= 'kitchen_type' name= 'kitchen_type' class="form-control" aria-label="Default select example">
+                        <option value=0>INSTALLED</option>
+                        <option value=1>USA INSTALLED</option>
+                        <option value=2>SEMI EQUIPPED</option>
+                        <option value=3>USA SEMI EQUIPPED</option>
+                        <option value=4>HYPER EQUIPPED</option>
+                        <option value=5>USA HYPER EQUIPPED</option>
+                    </select>
+
+                    </div>
+
+                    <div class="col"></col>
+                        <label for="building_condition">Building Condition</label>
+                        <select id= 'building_condition' name= 'building_condition' class="form-control" aria-label="Default select example">
+                            
+                          
+                            <option value=0>NEED WORK</option>
+                            <option value=1>JUST RENOVATED</option>
+                            <option value=2 selected>GOOD</option>
+                            <option value=3>AS NEW</option>
+                            
+                          
+                          </select>
+    
+                        </div>
+
+              </div>
+
+
+        <div class="form-group d-flex justify-content-center row">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasBasement" name='hasBasement' value=1>
+                <label class="form-check-label" for="hasBasement">Basement</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasDressingRoom" name='hasDressingRoom' value=1>
+                <label class="form-check-label" for="hasDressingRoom">Dressing Room</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasDisabledAccess" name='hasDisabledAccess' value=1>
+                <label class="form-check-label" for="hasDisabledAccess">Disabled Access</label>
+              </div>
+
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasLift" name='hasLift' value=1>
+                <label class="form-check-label" for="hasLift">Lift</label>
+              </div>
+
+        </div>
+
+        <div class="form-group d-flex justify-content-center row">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasArmoredDoor" name='hasArmoredDoor' value=1>
+                <label class="form-check-label" for="hasArmoredDoor">Armored Door</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasVisiophone" name='hasVisiophone' value=1>
+                <label class="form-check-label" for="hasVisiophone">Visiophone</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasSecureAccessAlarm" name='hasSecureAccessAlarm' value=1>
+                <label class="form-check-label" for="hasSecureAccessAlarm">Secure Access Alarm</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="fireplaceExists" name='fireplaceExists' value=1>
+                <label class="form-check-label" for="fireplaceExists">Fireplace</label>
+              </div>
+         </div>
+
+         <div class="form-group row d-flex justify-content-center">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasTerrace" name='hasTerrace' value=1>
+                <label class="form-check-label" for="hasTerrace">Terrace</label>
+              </div>
+              
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="transaction_sale_isFurnished" name='transaction_sale_isFurnished' value=1>
+                <label class="form-check-label" for="transaction_sale_isFurnished">Furnished</label>
+              </div>
+              
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="specificities_hasOffice" name='specificities_hasOffice' value=1>
+                <label class="form-check-label" for="specificities_hasOffice">Office Space</label>
+              </div>
+              
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hasparking" name='hasparking' value=1>
+                <label class="form-check-label" for="hasparking">Parking</label>
+              </div>
+            </div>
+           
+            <button type="submit" value="Submit" class="btn btn-primary">
+                Predict 
+              </button>
+
+
+    
+
+    
+    </form>
+    <h2 style="text-align: center ">{{ prediction }}</h2>
+    
+	</div>
+	<div class="col"></div>
+</div>
+  </body>
+</div>
+</html>

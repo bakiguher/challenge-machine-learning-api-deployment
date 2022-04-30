@@ -1,29 +1,50 @@
 from flask import Flask, request, render_template
 import pandas as pd
+import numpy as np
 import joblib
 
 app = Flask(__name__)
-water = 0
-grain = 0
-fodder = 0
-prediction = []
+prediction = ""
+
+
+
+def clean_data(_a:dict):
+    '''
+        Function to convert recevided data from web form to numpp array
+        All values are coming in a list so it is not need to check each one if they are valid. even if there is a data leak
+        function wont send them to prediction.
+    '''
+    _features=['subtype','age','bedroomCount','bathroomCount','netHabitableSurface','toiletCount','transaction_certificates_epcScore','building_condition','kitchen_type',
+            'flags_isNewlyBuilt','hasBasement','hasDressingRoom','hasDisabledAccess','hasLift','hasArmoredDoor','hasVisiophone','hasSecureAccessAlarm','fireplaceExists',
+            'hasTerrace','transaction_sale_isFurnished','specificities_hasOffice','hasparking']
+    _list=[]
+    for key in _features:
+        if key in _a:
+            _list.append(_a[key])
+        else:
+            _list.append(0)
+
+    pred_array = np.array(_list)
+    
+    return pred_array
+    
+
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
     if request.method == "POST":
         clf = joblib.load("clf.pkl")
-        soldier = request.form.get("soldier")
-        mule = request.form.get("mule")
-        slave = request.form.get("slave")
-        X = pd.DataFrame([[soldier, mule, slave]], columns=["soldier", "mule", "slave"])
-        prediction = clf.predict(X)[0]
-        water = prediction[0]
-        grain = prediction[1]
-        fodder = prediction[2]
+        _alldata=request.form.to_dict()
+        _q=clean_data(_alldata)
+        prediction=clf.predict(_q)
+        prediction="{0:,.2f}".format(prediction)
+        prediction = "It is around " + str(prediction) + " Euros" 
+       
     else:
-        water = 0
-        grain = 0
-        fodder = 0
-    return render_template("website.html", water=water, grain=grain, fodder=fodder)
+        prediction = ""
+        
+    return render_template("website.html", prediction=prediction )
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
