@@ -26,6 +26,16 @@ In addition, they would like you to create an API to let their web-developers cr
 Ideally, your API would ask a user to provide with information about a property (features) and return the estimated price using your model.
 
 
+### Built With
+
+* [Python](https://www.python.org/)
+* [pycaret](https://pycaret.org//)
+* [Catboost](https://catboost.ai//)
+* [Scikit-learn](https://scikit-learn.org/)
+* [Docker](https://www.docker.com/)
+* [Heroku](https://www.heroku.com/)
+
+
 ## Preparation
 
 In any API use case the first thing to decide _(for each route)_, is the **input** and the **output** you want.
@@ -33,33 +43,30 @@ Your very first step will be to decide that.
 
 ### Input
 
-The input of your API is:
+subtype
+age
+bedroomCount
+bathroomCount
+netHabitableSurface
+toiletCount
+transaction_certificates_epcScore
+building_condition
+kitchen_type
+flags_isNewlyBuilt
+hasBasement
+hasDressingRoom
+hasDisabledAccess
+hasLift
+hasArmoredDoor
+hasVisiophone
+hasSecureAccessAlarm
+fireplaceExists
+hasTerrace
+transaction_sale_isFurnished
+specificities_hasOffice
+hasparking
 
-*(Can be modified depending on your model's need.)*
 
-```json
-{
-  "data": {
-    "area": int,
-    "property-type": "APARTMENT" | "HOUSE" | "OTHERS",
-    "rooms-number": int,
-    "zip-code": int,
-    "land-area": Optional[int],
-    "garden": Optional[bool],
-    "garden-area": Optional[int],
-    "equipped-kitchen": Optional[bool],
-    "full-address": Optional[str],
-    "swimming-pool": Optional[bool],
-    "furnished": Optional[bool],
-    "open-fire": Optional[bool],
-    "terrace": Optional[bool],
-    "terrace-area": Optional[int],
-    "facades-number": Optional[int],
-    "building-state": Optional[
-      "NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"
-    ]
-  }
-}
 ```
 
 Don't forget to specify which parameters will be required or not.

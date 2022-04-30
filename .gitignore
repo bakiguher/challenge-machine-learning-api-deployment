@@ -2,3 +2,7 @@
 *.xlsx
 *.zip
 *.7z
+__pycache__
+env
+_temp
+catboost_info
