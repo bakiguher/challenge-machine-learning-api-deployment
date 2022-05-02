@@ -29,7 +29,7 @@ def main():
         Function to get data from form and return the prediction in the same template. 
     '''
     if request.method == "POST":
-        clf = joblib.load("clf.pkl")
+        clf = joblib.load("clf2.pkl")
         prediction="{0:,.2f}".format(clf.predict(clean_data(request.form.to_dict())))
         prediction = "It is around " + str(prediction) + " Euros" 
     else:

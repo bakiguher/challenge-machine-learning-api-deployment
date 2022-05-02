@@ -35,11 +35,10 @@ Ideally, your API would ask a user to provide with information about a property 
 * [Docker](https://www.docker.com/)
 * [Heroku](https://www.heroku.com/)
 
+### Prediction Form web page
 
-## Preparation
+https://apartmentprice.herokuapp.com/
 
-In any API use case the first thing to decide _(for each route)_, is the **input** and the **output** you want.
-Your very first step will be to decide that.
 
 ### Input Data
 ```
