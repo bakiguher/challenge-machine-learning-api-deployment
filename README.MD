@@ -29,8 +29,8 @@ Ideally, your API would ask a user to provide with information about a property 
 ### Built With
 
 * [Python](https://www.python.org/)
-* [pycaret](https://pycaret.org//)
-* [Catboost](https://catboost.ai//)
+* [pycaret](https://pycaret.org/)
+* [Catboost](https://catboost.ai/)
 * [Scikit-learn](https://scikit-learn.org/)
 * [Docker](https://www.docker.com/)
 * [Heroku](https://www.heroku.com/)
@@ -69,16 +69,13 @@ hasparking
 
 ### Output
 
-Predicted price: same page as form
+Predicted price: same page as app form
  
-
-```json
-{
-  "prediction": Optional[float],
-  "error": Optional[str]
-}
-```
-
+### Preperation
+ - Appartment prices are used starting from 200K to 400K 
+ - datafile was already clean from the previous project but needed to choose some categories and ordinal values.
+ - [Catboost](https://catboost.ai/) regressor is used after checking the best fit with [pycaret](https://pycaret.org/)
+ - Model has %50 accuracy
 
 ### Must-have features
 
@@ -160,7 +157,7 @@ Deploy your web app on Heroku using the requirements.txt file. You can use the f
 |                | The API is clear and the presentation is understandable. | [ ]    |
 |                | README is pimped.                                        | [ ]    |
 |                | Your model is trained and can predict a result.          | [ ]    |
-|                | Your API is deployed on Heroku.              | [ ]    |
+|                | Your API is deployed on Heroku.                          | [ ]    |
 | 2. Is good     | The repo doesn't contain unnecessary files.              | [ ]    |
 |                | You used typing.                                         | [ ]    |
 |                | The presentation is clean.                               | [ ]    |

@@ -12,6 +12,7 @@ def clean_data(_a:dict):
         All values are coming in a list so it is not need to check each one if they are valid. even if there is a data leak
         function wont send them to prediction.
     '''
+    print(_a)
     _features=['subtype','age','bedroomCount','bathroomCount','netHabitableSurface','toiletCount','transaction_certificates_epcScore','building_condition','kitchen_type',
             'flags_isNewlyBuilt','hasBasement','hasDressingRoom','hasDisabledAccess','hasLift','hasArmoredDoor','hasVisiophone','hasSecureAccessAlarm','fireplaceExists',
             'hasTerrace','transaction_sale_isFurnished','specificities_hasOffice','hasparking']
@@ -29,7 +30,7 @@ def main():
         Function to get data from form and return the prediction in the same template. 
     '''
     if request.method == "POST":
-        clf = joblib.load("clf2.pkl")
+        clf = joblib.load("clf.pkl")
         prediction="{0:,.2f}".format(clf.predict(clean_data(request.form.to_dict())))
         prediction = "It is around " + str(prediction) + " Euros" 
     else:
