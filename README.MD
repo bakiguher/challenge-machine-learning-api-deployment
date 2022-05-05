@@ -29,6 +29,7 @@ Ideally, your API would ask a user to provide with information about a property 
 ### Built With
 
 * [Python](https://www.python.org/)
+* [Flask](https://flask.palletsprojects.com/)
 * [pycaret](https://pycaret.org/)
 * [Catboost](https://catboost.ai/)
 * [Scikit-learn](https://scikit-learn.org/)
@@ -49,6 +50,7 @@ https://apartmentprice.herokuapp.com/
 │   Dockerfile                    : Docker file  
 │   Procfile                      : Heroku start application- gunicorn
 │   docker-compose.yml            : Docker file
+|   requirements.txt              : Requirements file
 |___             
 │   houseimpute                   : House data folder 
 │   │ model.ipynb                 : Imputations of missing values, Model and test  
@@ -56,10 +58,13 @@ https://apartmentprice.herokuapp.com/
 |    model          
 │   │ modelapt.ipynb              : Model creation and test.
 │   │ clf.pkl                     : Regresser dump file 
-│   │ unique_unscraped_urls.txt   : Unscraped urls 
 │___  
 |    preprocessing
 │   | cleaningdata.ipynb          : Preliminary check and cleaning of raw data 
+│___  
+|    templates
+│   | website.html                : Template for flask  
+
 
 ```
 
@@ -112,8 +117,9 @@ Predicted price: same page as app form
  - [Catboost](https://catboost.ai/) regressor is used after checking the best fit with [pycaret](https://pycaret.org/)
  - Model has %50 accuracy
 
-### Extras
-  In houseimpute folder I created a model for House price prediction. But in Belgium the land size house sitting on is effecting the price too much.
+## Extras
+  In houseimpute folder there is a jupyter book, model.ipynb for House price prediction(not the apartments). 
+  But in Belgium the land size house sitting on is effecting the price too much.
   Especially if it has extra building rights on the same land. I cleaned the house data and come up with around 2500 houses and try to grab some reliable data. 
   Building condition, kitchen type and EPC certification scores are used as ordinal data. With some iterative imputing I could also managed to fix room and bedroom
   counts. With ExtraTreeRegressor and CatBoostregressor I could get %70-%75 accuracy.
@@ -150,10 +156,12 @@ https://apartmentprice.herokuapp.com/
 
 ```
 Clone the repo, 
-install requirements, 
+install requirements:
+$ pip install -r requirements.txt
 Ready to be dockerized
 Push to Heroku as a container
 (for pycaret it can be better to use on kaggle, 
-it has some conflicts with python 10.xx versions)
+it has some conflicts with python 10.xx versions
+it is not in the requirements file)
 ```
 
