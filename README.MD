@@ -40,32 +40,64 @@ Ideally, your API would ask a user to provide with information about a property 
 https://apartmentprice.herokuapp.com/
 
 
-### Input Data
-```
-subtype
-age
-bedroomCount
-bathroomCount
-netHabitableSurface
-toiletCount
-transaction_certificates_epcScore
-building_condition
-kitchen_type
-flags_isNewlyBuilt
-hasBasement
-hasDressingRoom
-hasDisabledAccess
-hasLift
-hasArmoredDoor
-hasVisiophone
-hasSecureAccessAlarm
-fireplaceExists
-hasTerrace
-transaction_sale_isFurnished
-specificities_hasOffice
-hasparking
+## Repo Architecture 
+
 ```
 
+│   README.md                     : This file
+│   app.py                        : Flask app start
+│   Dockerfile                    : Docker file  
+│   Procfile                      : Heroku start application- gunicorn
+│   docker-compose.yml            : Docker file
+│___   
+|    model          
+│   │ modelapt.ipynb              : Model creation and test.
+│   │ clf.pkl                     : Regresser dump file 
+│   │ unique_unscraped_urls.txt   : Unscraped urls 
+│___  
+|    preprocessing
+│   | cleaningdata.ipynb          : Preliminary check and cleaning of raw data 
+
+```
+
+### Input Data / Feature Names
+```
+['subtype',
+ 'age',
+ 'bedroomCount',
+ 'bathroomCount',
+ 'netHabitableSurface',
+ 'toiletCount',
+ 'transaction.certificates.epcScore',
+ 'building.condition',
+ 'kitchen.type',
+ 'flags.isNewlyBuilt',
+ 'hasBasement',
+ 'hasDressingRoom',
+ 'hasDisabledAccess',
+ 'hasLift',
+ 'hasArmoredDoor',
+ 'hasVisiophone',
+ 'hasSecureAccessAlarm',
+ 'fireplaceExists',
+ 'hasTerrace',
+ 'transaction.sale.isFurnished',
+ 'specificities.hasOffice',
+ 'hasparking']
+```
+
+### CatBoostRegressor
+Model Parameters:
+```
+{'iterations': 1000, 'learning_rate': 0.0396099984645843, 'depth': 6, 'l2_leaf_reg': 3, 'model_size_reg': 0.5, 'rsm': 1, 
+'loss_function': 'RMSE', 'border_count': 254, 'feature_border_type': 'GreedyLogSum', 'nan_mode': 'Min', 'leaf_estimation_iterations': 1,
+ 'leaf_estimation_method': 'Newton', 'random_seed': 10, 'use_best_model': False, 'best_model_min_trees': 1, 'verbose': False, 
+ 'random_strength': 1, 'eval_metric': 'RMSE', 'boosting_type': 'Plain', 'task_type': 'CPU', 'bootstrap_type': 'MVS', 
+ 'subsample': 0.800000011920928, 'sampling_frequency': 'PerTree', 'sparse_features_conflict_fraction': 0, 
+ 'grow_policy': 'SymmetricTree', 'min_data_in_leaf': 1, 'max_leaves': 64, 'score_function': 'Cosine', 
+ 'leaf_estimation_backtracking': 'AnyImprovement', 'penalties_coefficient': 1, 'model_shrink_rate': 0, 
+ 'model_shrink_mode': 'Constant', 'posterior_sampling': False, 'boost_from_average': True}
+```
 
 ### Output
 
@@ -77,48 +109,24 @@ Predicted price: same page as app form
  - [Catboost](https://catboost.ai/) regressor is used after checking the best fit with [pycaret](https://pycaret.org/)
  - Model has %50 accuracy
 
-### Must-have features
+### Extras
+  In houseimpute folder I created a model for House price prediction. But in Belgium the land size house sitting on is effecting the price too much.
+  Especially if it has extra building rights on the same land. I could clear the house data and come up with around 2500 houses and try to grab some reliable data. 
+  Building condition, kitchen type and EPC certification scores are used as ordinal data. With some iterative imputing I could also managed to fix room and bedroom
+  counts. With ExtraTreeRegressor I could get %75 accuracy.  
+  ```
+  ['transaction.sale.price','flags.isNewlyBuilt','property.subtype','property.bedroomCount','property.bathroomCount','property.netHabitableSurface','property.hasBasement',
+                'property.hasDressingRoom','property.building.condition','property.building.constructionYear','property.hasCaretakerOrConcierge','property.hasDisabledAccess',
+                'property.hasLift','property.kitchen.type','property.land.surface','property.hasLaundryRoom','property.hasGarden','property.parkingCountIndoor',
+                'property.parkingCountOutdoor','property.hasAirConditioning','property.hasArmoredDoor','property.hasVisiophone','property.hasSecureAccessAlarm',
+                'property.hasCableTV','property.hasDoorPhone','property.showerRoomCount','property.toiletCount','property.hasSwimmingPool','property.hasSauna',
+                'property.hasJacuzzi','property.fireplaceExists','property.hasTerrace','transaction.certificates.epcScore','property.energy.hasHeatPump',
+                'property.energy.hasPhotovoltaicPanels','property.energy.hasThermicPanels','property.energy.hasCollectiveWaterHeater','property.energy.hasDoubleGlazing',
+                'property.livingRoom.surface'
 
-#### Step 1: Project preparation
+                ]
+  ```
 
-- Create a folder to handle your project.
-- Create a file `app.py` that will contain the code for your API.
-- Create a folder `preprocessing/` that will contain all the code to preprocess your data.
-- Create a folder `model/` that will contain your model.
-- Create a folder `predict/` that will contain all the code to predict the price.
-
-#### Step 2: Preprocessing pipeline
-
-This python module will contain all the code to preprocess your data. Make sure to think about what will be the format of your data to fit the model.
-Also, be sure to know which information HAVE to be there and which one can be empty (NAN).
-
-In the `preprocessing/` folder:
-
-- Create the `cleaning_data.py` file that will contain all the code that will be used to preprocess the data you will receive to predict a new price. (fill the NaN values, handle text data, etc...).
-- This file should contain a function called `preprocess()` that will take a new house's data as input and return those data preprocessed as output.
-- If your data doesn't contain the required information, you should return an error to the user.
-
-#### Step 3: Fit your data
-
-Fit your data to your model.
-
-In the `predict/` folder:
-
-- Create the `prediction.py` file that will contain all the code used to predict a new house's price.
-- Your file should contain a function `train()` that will create and store the model and a function `predict()` that will take your preprocessed data as an input and return a price as output using your stored model.
-
-#### Step 4: Create your API
-
-In your `app.py` file, create a Flask API that contains:
-
-- A route at `/` that accept:
-  - `GET` request and return `"alive"` if the server is alive.
-- A route at `/predict` that accept:
-  - `POST` request that receives the data of a house in JSON format.
-  - `GET` request returning a string to explain what the `POST` expect (data and format).
-
-#### Step 5: Deploy your app on Heroku
-Deploy your web app on Heroku using the requirements.txt file. You can use the following tutorial as a reference: [Deploying a Flask Application to Heroku](https://stackabuse.com/deploying-a-flask-application-to-heroku/) 
 
 ## Nice-to- have's:
 

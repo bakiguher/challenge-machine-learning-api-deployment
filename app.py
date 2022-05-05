@@ -9,8 +9,8 @@ prediction = ""
 def clean_data(_a:dict):
     '''
         Function to convert recevided data from web form to numpp array
-        All values are coming in a list so it is not need to check each one if they are valid. even if there is a data leak
-        function wont send them to prediction.
+        All values are coming in a dict so it is not need to check each one if they are valid. 
+        Radio buttons from the web form dont return value unless it is clicked function sets their value to 0
     '''
     print(_a)
     _features=['subtype','age','bedroomCount','bathroomCount','netHabitableSurface','toiletCount','transaction_certificates_epcScore','building_condition','kitchen_type',
@@ -30,7 +30,7 @@ def main():
         Function to get data from form and return the prediction in the same template. 
     '''
     if request.method == "POST":
-        clf = joblib.load("clf.pkl")
+        clf = joblib.load("../model/clf.pkl")
         prediction="{0:,.2f}".format(clf.predict(clean_data(request.form.to_dict())))
         prediction = "It is around " + str(prediction) + " Euros" 
     else:
