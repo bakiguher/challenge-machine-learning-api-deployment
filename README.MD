@@ -53,10 +53,10 @@ https://apartmentprice.herokuapp.com/
 |   requirements.txt              : Requirements file
 |___             
 │   houseimpute                   : House data folder 
-│   │ model.ipynb                 : Imputations of missing values, Model and test  
+│   │ model.ipynb                 : Imputations of missing values, Model and test for house prices
 │___   
 |    model          
-│   │ modelapt.ipynb              : Model creation and test.
+│   │ modelapt.ipynb              : Model creation and test for apartment price prediction
 │   │ clf.pkl                     : Regresser dump file 
 │___  
 |    preprocessing
